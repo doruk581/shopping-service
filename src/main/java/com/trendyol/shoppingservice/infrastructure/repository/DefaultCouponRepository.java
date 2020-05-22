@@ -15,7 +15,7 @@ public class DefaultCouponRepository implements CouponRepository {
 
     static {
         final Coupon coupon1 = new Coupon(DiscountType.RATE, null, 0.1, BigDecimal.valueOf(100), "COUP1");
-        final Coupon coupon2 = new Coupon(DiscountType.AMOUNT, BigDecimal.valueOf(100), null, BigDecimal.valueOf(1000), "COUP2");
+        final Coupon coupon2 = new Coupon(DiscountType.AMOUNT, BigDecimal.valueOf(100), null, BigDecimal.valueOf(250), "COUP2");
 
         couponMap.put(coupon1.getCouponCode(), coupon1);
         couponMap.put(coupon2.getCouponCode(), coupon2);

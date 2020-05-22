@@ -3,7 +3,7 @@ package com.trendyol.shoppingservice.domain.flow;
 import com.trendyol.shoppingservice.domain.ShoppingCart;
 import com.trendyol.shoppingservice.domain.ShoppingContext;
 import lombok.extern.slf4j.Slf4j;
-
+/*Instead of print, I documented as a log on console*/
 @Slf4j
 public class InitializeCartLoggerHandler implements Handler<ShoppingContext> {
 

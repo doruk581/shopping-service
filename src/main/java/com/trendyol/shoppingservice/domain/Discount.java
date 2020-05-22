@@ -32,11 +32,10 @@ public abstract class Discount {
 
     protected BigDecimal calculateAmountByDiscountRate(final BigDecimal amount) {
 
-        final BigDecimal discountAmount = amount
-                .multiply(BigDecimal.valueOf(discountRate))
-                .divide(BigDecimal.valueOf(100), 2);
+        final BigDecimal rateAmount = amount.multiply(BigDecimal.valueOf(discountRate)).divide(Constants.PERCENT,2);
 
-        return amount.subtract(discountAmount);
+
+        return amount.subtract(rateAmount);
     }
 
     public BigDecimal calculate(final DiscountType discountType, final BigDecimal amount) {

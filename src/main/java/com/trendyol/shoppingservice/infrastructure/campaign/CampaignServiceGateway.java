@@ -18,11 +18,11 @@ public class CampaignServiceGateway implements CampaignService {
     static {
         final Campaign campaign = Campaign.builder(DiscountType.AMOUNT, BigDecimal.valueOf(5), null, CategoryId.COMPUTER, 3);
 
-        final Campaign campaign1 = Campaign.builder(DiscountType.RATE, null, 0.2, CategoryId.SUPERMARKET, 3);
+        final Campaign campaign1 = Campaign.builder(DiscountType.RATE, null, 20.0, CategoryId.SUPERMARKET, 3);
 
-        final Campaign campaign2 = Campaign.builder(DiscountType.RATE, null, 0.5, CategoryId.CLOTHING, 5);
+        final Campaign campaign2 = Campaign.builder(DiscountType.RATE, null, 50.0, CategoryId.CLOTHING, 5);
 
-        final Campaign campaign3 = Campaign.builder(DiscountType.RATE, null, 0.4, CategoryId.ELECTRONICS, 3);
+        final Campaign campaign3 = Campaign.builder(DiscountType.RATE, null, 40.0, CategoryId.ELECTRONICS, 3);
 
         campaignList.add(campaign);
         campaignList.add(campaign1);
