@@ -23,11 +23,9 @@ public class InitializeCartLoggerHandler implements Handler<ShoppingContext> {
                 + " products");
 
         shoppingCart.getItemList()
-                .forEach(item -> {
-                    log.warn("Product : " + item.getProduct().getTitle() + " Quantity: " + item.getQuantity() + " Category: " + item.getProduct().getCategory().getId()
-                            + " Unit price: " + item.getProduct().getPrice() + " Total Price: " + item.totalPrice() + " Total Discount Applied: " + shoppingCart.totalDiscount() +
-                            " Final Cost: " + shoppingCart.totalAmountOfItems());
-                });
+                .forEach(item -> log.warn("Product : " + item.getProduct().getTitle() + " Quantity: " + item.getQuantity() + " Category: " + item.getProduct().getCategory().getId()
+                        + " Unit price: " + item.getProduct().getPrice() + " Total Price: " + item.totalPrice() + " Total Discount Applied: " + shoppingCart.totalDiscount() +
+                        " Final Cost: " + shoppingCart.totalAmountOfItems()));
 
         if (this.successor != null) successor.handle(context);
     }
