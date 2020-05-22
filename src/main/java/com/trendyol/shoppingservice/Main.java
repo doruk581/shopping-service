@@ -28,8 +28,8 @@ public class Main {
 
 
     @Bean
-    ShoppingService shoppingService(CommandHandler<CreateItemCommand> createItemCommandCommandHandler) {
-        return new DefaultShoppingService(createItemCommandCommandHandler);
+    ShoppingService shoppingService(CommandHandler<CreateItemCommand> createItemCommandCommandHandler, ShoppingRepository shoppingRepository) {
+        return new DefaultShoppingService(createItemCommandCommandHandler,shoppingRepository);
     }
 
     @Bean

@@ -2,6 +2,7 @@ package com.trendyol.shoppingservice.application;
 
 import com.trendyol.shoppingservice.application.validation.ValidationResult;
 import com.trendyol.shoppingservice.application.validation.ValidationService;
+import com.trendyol.shoppingservice.domain.CartNotFoundException;
 import com.trendyol.shoppingservice.domain.ProductNotExistException;
 import com.trendyol.shoppingservice.domain.ShoppingService;
 import com.trendyol.shoppingservice.domain.commands.CreateItemCommand;
@@ -10,10 +11,7 @@ import com.trendyol.shoppingservice.interfaces.ServiceError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 @RestController
@@ -42,6 +40,12 @@ public class ShoppingServiceController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(path = "/shopping/cart/{id}")
+    public ResponseEntity getCartById(@PathVariable("id") String id){
+
+        return ResponseEntity.ok(shoppingService.getShoppingCart(id));
+    }
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ServiceError> handleInternalServerError(Exception ex, WebRequest request) {
         log.error("Unhandled exception occurred!", ex);
@@ -52,5 +56,11 @@ public class ShoppingServiceController {
     public final ResponseEntity<ServiceError> handleProductNotExistException(Exception ex, WebRequest request) {
         log.error("ProductNotExistException occurred!", ex);
         return new ResponseEntity<>(ServiceError.create(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ErrorCode.PRODUCTNOTEXISTINSYSTEM.code()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CartNotFoundException.class)
+    public final ResponseEntity<ServiceError> handleCartNotFoundException(Exception ex, WebRequest request) {
+        log.error("CartNotFoundExceptipn occurred!", ex);
+        return new ResponseEntity<>(ServiceError.create(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ErrorCode.CARTNOTEXIST.code()), HttpStatus.BAD_REQUEST);
     }
 }

@@ -122,7 +122,7 @@ public class ShoppingCart {
     }
 
     public BigDecimal totalDiscount() {
-        return this.couponDiscount.add(campaignDiscount);
+        return Optional.ofNullable(this.couponDiscount).orElse(BigDecimal.ZERO).add(Optional.ofNullable(campaignDiscount).orElse(BigDecimal.ZERO));
     }
 
     public BigDecimal totalAmountOfItems() {

@@ -5,4 +5,6 @@ import com.trendyol.shoppingservice.domain.commands.CreateItemCommand;
 public interface ShoppingService {
 
     void create(final CreateItemCommand command);
+
+    ShoppingCart getShoppingCart(final String id);
 }
