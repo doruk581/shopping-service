@@ -126,7 +126,7 @@ public class ShoppingCart {
     }
 
     public BigDecimal totalAmountOfItems() {
-        return this.totalCostAfterCouponDiscount.add(this.deliveryCost);
+        return this.totalCostBeforeDiscounts.subtract(totalDiscount());
     }
 
     public BigDecimal getCouponDiscount() {
