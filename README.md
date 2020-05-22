@@ -56,7 +56,7 @@ Projeyi derlemek için
 Derlenen projeyi çalıştırmak için
 
 ```
-java -jar build/libs/courier-tracking-system-all-0.0.1-SNAPSHOT.jar 
+java -jar build/libs/shopping-service-all-0.0.1-SNAPSHOT.jar 
 ```
 
 
