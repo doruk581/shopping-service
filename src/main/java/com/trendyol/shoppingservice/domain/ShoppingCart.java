@@ -117,8 +117,10 @@ public class ShoppingCart {
     public Integer getNumberOfProducts() {
         return this.itemList
                 .stream()
-                .map(ShoppingCartItem::getQuantity)
-                .reduce(0, Integer::sum);
+                .map(ShoppingCartItem::getProduct)
+                .map(Product::getId)
+                .collect(Collectors.toSet())
+                .size();
     }
 
     public BigDecimal totalDiscount() {

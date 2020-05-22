@@ -134,4 +134,118 @@ public class ShoppingCartTest {
         assertNull(assignedCampaign);
     }
 
+    @Test
+    public void controlThatTotalDiscountReturnCorrectResultWhenNoCouponApplied() {
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        shoppingCart.setCampaignDiscount(BigDecimal.valueOf(100));
+
+        final BigDecimal expected = shoppingCart.totalDiscount();
+
+        assertThat(expected, is(equalTo(BigDecimal.valueOf(100))));
+    }
+
+    @Test
+    public void controlThatTotalDiscountReturnCorrectResultWhenNoCouponAndCampaignApplied() {
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+
+        final BigDecimal expected = shoppingCart.totalDiscount();
+
+        assertThat(expected, is(equalTo(BigDecimal.valueOf(0))));
+    }
+
+    @Test
+    public void controlThatTotalDiscountReturnCorrectResultWhenNoCampaignApplied() {
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        shoppingCart.setCouponDiscount(BigDecimal.valueOf(10));
+
+        final BigDecimal expected = shoppingCart.totalDiscount();
+
+        assertThat(expected, is(equalTo(BigDecimal.valueOf(10))));
+    }
+
+    @Test
+    public void controlThatNumberOfProductsReturnOnlyDistinctProductsCount() {
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        final Category electronics = new Category(CategoryId.ELECTRONICS, null);
+        final Category computer = new Category(CategoryId.COMPUTER, electronics);
+        final Category notebook = new Category(CategoryId.NOTEBOOK, computer);
+        final Product product1 = Product.builder().id("2").category(notebook).price(BigDecimal.valueOf(10000)).title("MACBOOK PRO").build();
+
+        final ShoppingCartItem item = ShoppingCartItem.builder().quantity(10).product(product1).build();
+
+        shoppingCart.getItemList().add(item);
+
+        final Integer expected = shoppingCart.getNumberOfProducts();
+
+        assertThat(expected, is(equalTo(1)));
+    }
+
+    @Test
+    public void controlThatNumberOfProductsReturnOnlyDistinctProductsCountWhenThereIsMultiple() {
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        final Category electronics = new Category(CategoryId.ELECTRONICS, null);
+        final Category computer = new Category(CategoryId.COMPUTER, electronics);
+        final Category notebook = new Category(CategoryId.NOTEBOOK, computer);
+        final Product product1 = Product.builder().id("2").category(notebook).price(BigDecimal.valueOf(10000)).title("MACBOOK PRO").build();
+        final Product product2 = Product.builder().id("3").category(notebook).price(BigDecimal.valueOf(10000)).title("DELL").build();
+
+
+        final ShoppingCartItem item = ShoppingCartItem.builder().quantity(10).product(product1).build();
+        final ShoppingCartItem item2 = ShoppingCartItem.builder().quantity(10).product(product2).build();
+
+
+        shoppingCart.getItemList().add(item);
+        shoppingCart.getItemList().add(item2);
+
+        final Integer expected = shoppingCart.getNumberOfProducts();
+
+        assertThat(expected, is(equalTo(2)));
+    }
+
+    @Test
+    public void controlThatNumberOfDeliveriesReturnCorrectValueWhenThereIsOnlyOneDistinctCategory() {
+
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        final Category electronics = new Category(CategoryId.ELECTRONICS, null);
+        final Category computer = new Category(CategoryId.COMPUTER, electronics);
+        final Category notebook = new Category(CategoryId.NOTEBOOK, computer);
+        final Product product1 = Product.builder().id("2").category(notebook).price(BigDecimal.valueOf(10000)).title("MACBOOK PRO").build();
+        final Product product2 = Product.builder().id("3").category(notebook).price(BigDecimal.valueOf(10000)).title("DELL").build();
+
+
+        final ShoppingCartItem item = ShoppingCartItem.builder().quantity(10).product(product1).build();
+        final ShoppingCartItem item2 = ShoppingCartItem.builder().quantity(10).product(product2).build();
+
+
+        shoppingCart.getItemList().add(item);
+        shoppingCart.getItemList().add(item2);
+
+        final Integer expected = shoppingCart.getNumberOfDeliveries();
+
+        assertThat(expected, is(equalTo(1)));
+    }
+
+    @Test
+    public void controlThatNumberOfDeliveriesReturnCorrectValueWhenThereIsMultipleDistinctCategory() {
+
+        final ShoppingCart shoppingCart = ShoppingCart.create("111");
+        final Category electronics = new Category(CategoryId.ELECTRONICS, null);
+        final Category computer = new Category(CategoryId.COMPUTER, electronics);
+        final Category notebook = new Category(CategoryId.NOTEBOOK, computer);
+        final Product product1 = Product.builder().id("2").category(computer).price(BigDecimal.valueOf(10000)).title("MACBOOK PRO").build();
+        final Product product2 = Product.builder().id("3").category(notebook).price(BigDecimal.valueOf(10000)).title("DELL").build();
+
+
+        final ShoppingCartItem item = ShoppingCartItem.builder().quantity(10).product(product1).build();
+        final ShoppingCartItem item2 = ShoppingCartItem.builder().quantity(10).product(product2).build();
+
+
+        shoppingCart.getItemList().add(item);
+        shoppingCart.getItemList().add(item2);
+
+        final Integer expected = shoppingCart.getNumberOfDeliveries();
+
+        assertThat(expected, is(equalTo(2)));
+    }
+
 }

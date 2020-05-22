@@ -31,10 +31,12 @@ public class ProductServiceGateway implements ProductService {
         final Product product = Product.builder().id("1").price(BigDecimal.valueOf(1000)).category(notebook).title("DELL XPS").build();
         final Product product1 = Product.builder().id("2").category(notebook).price(BigDecimal.valueOf(10000)).title("MACBOOK PRO").build();
         final Product product2 = Product.builder().id("3").category(clothing).price(BigDecimal.valueOf(100)).title("GÖMLEK").build();
+        final Product product3 = Product.builder().id("4").category(shoes).price(BigDecimal.TEN).title("NIKE BEYAZ SNEAKER").build();
 
         productList.add(product);
         productList.add(product1);
         productList.add(product2);
+        productList.add(product3);
     }
 
     @Override

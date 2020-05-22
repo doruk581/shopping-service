@@ -41,7 +41,7 @@ public class ShoppingServiceController {
     }
 
     @GetMapping(path = "/shopping/cart/{id}")
-    public ResponseEntity getCartById(@PathVariable("id") String id){
+    public ResponseEntity getCartById(@PathVariable("id") String id) {
 
         return ResponseEntity.ok(shoppingService.getShoppingCart(id));
     }

@@ -32,7 +32,7 @@ public abstract class Discount {
 
     protected BigDecimal calculateAmountByDiscountRate(final BigDecimal amount) {
 
-        final BigDecimal rateAmount = amount.multiply(BigDecimal.valueOf(discountRate)).divide(Constants.PERCENT,2);
+        final BigDecimal rateAmount = amount.multiply(BigDecimal.valueOf(discountRate)).divide(Constants.PERCENT, 2);
 
 
         return amount.subtract(rateAmount);
